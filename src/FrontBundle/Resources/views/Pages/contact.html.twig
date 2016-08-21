@@ -1,0 +1,49 @@
+{% extends 'FrontBundle::base.html.twig' %}
+
+{% block title %}CONTACT US{% endblock%}
+
+{% block content %}
+    <div class="breadcrumbs">
+        <div class="container">
+            <div class="breadcrumbs-main">
+                <ol class="breadcrumb">
+                    <li><a href="{{ path('front_main_page') }}">Home</a></li>
+                    <li class="active">Contact</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <div class="contact">
+        <div class="container">
+            <div class="contact-top heading">
+                <h3>CONTACT US</h3>
+            </div>
+            <div class="contact-bottom">
+                {% for type, message in app.session.flashbag.all() %}
+                    <div class="alert alert-{{ type }}">
+                        {{ message.0 }}
+                    </div>
+                {% endfor %}
+                <form action="{{ path('front_page_contact') }}" method="POST" id="contact_form">
+                    {{ form_errors(form) }}
+                    <div class="col-md-6 contact-left">
+                        {{ form_errors(form.name) }}
+                        {{ form_widget(form.name, {'attr': {'placeholder': 'Name'}}) }}
+                        {{ form_errors(form.email) }}
+                        {{ form_widget(form.email, {'attr': {'placeholder': 'E-mail'}}) }}
+                        {{ form_errors(form.subject) }}
+                        {{ form_widget(form.subject, {'attr': {'placeholder': 'Subject'}}) }}
+                    </div>
+                    <div class="col-md-6 contact-left">
+                        {{ form_errors(form.message) }}
+                        {{ form_widget(form.message, {'attr': {'placeholder': 'Message'}}) }}
+                        {{ form_rest(form) }}
+                        <input type="submit" value="SEND">
+                    </div>
+                    <div class="clearfix"> </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

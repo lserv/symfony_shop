@@ -1,0 +1,25 @@
+<html>
+<head>
+    <title>{% block title %}Login form{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/admin/css/bootstrap.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/admin/css/material.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/admin/css/material-fullpalette.css') }}"/>
+
+    <script type="text/javascript" src="{{ asset('bundles/admin/js/jQuery.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/admin/js/bootstrap.js') }}"></script>
+
+    <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
+</head>
+<body>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="container">
+                <div class="items-list">
+                    {% block content %}{% endblock content %}
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

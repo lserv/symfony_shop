@@ -1,0 +1,19 @@
+services:
+    #################
+    ### PROVIDERS ###
+    #################
+    "provider.mail":
+        class: Shop\CoreBundle\Providers\MailProvider
+        calls:
+            - [setContainer, ["@service_container"]]
+    "provider.mail_contact":
+        class: Shop\CoreBundle\Providers\MailContactProvider
+        arguments: [%contact_email%, %contact_from%]
+        calls:
+            - [setMailerProvider, ["@provider.mail"]]
+    ################
+    ### MANAGERS ###
+    ################
+    "manager.category":
+        class: Shop\CoreBundle\Manager\CategoryManager
+        arguments: ["@doctrine.orm.entity_manager"]

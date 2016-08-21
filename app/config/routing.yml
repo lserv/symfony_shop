@@ -1,0 +1,9 @@
+shop_front:
+    resource: "@FrontBundle/Controller/"
+    type:     annotation
+shop_admin:
+    resource: "@AdminBundle/Controller/"
+    type:     annotation
+    prefix:   admin
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"

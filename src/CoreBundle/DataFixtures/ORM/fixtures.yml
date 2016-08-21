@@ -1,0 +1,27 @@
+Shop\CoreBundle\Entity\User:
+    userAdmin:
+        username: 'admin'
+        email: 'admin@local.dev'
+        enabled: true
+        plainPassword: 'admin'
+        locked: false
+        expired: false
+        roles: [ROLE_ADMIN]
+    users_{1..3}:
+        username (unique): user<current()>
+        email: user<current()>@local.dev
+        enabled: <boolean()>
+        plainPassword: '123'
+        locked: <boolean()>
+        expired: <boolean()>
+        roles: [ROLE_USER]
+
+Shop\CoreBundle\Entity\Category:
+    categories_{1..10} (unique):
+        title: category<current()>
+
+Shop\CoreBundle\Entity\Product:
+    products_{1..10}:
+        title (unique): product<current()>
+        category: '@categories_<numberBetween(1, 10)>'
+        user: '@users_<numberBetween(1, 3)>'

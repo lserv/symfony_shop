@@ -1,0 +1,6 @@
+imports:
+    - { resource: services.yml }
+
+parameters:
+    contact_email: info@gmail.com
+    contact_from: info@gmail.com
