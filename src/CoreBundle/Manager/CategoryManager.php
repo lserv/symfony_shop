@@ -24,7 +24,7 @@ class CategoryManager
         return $this->repository;    
     }
     
-    public function persist(Category $category)
+    public function persistAndFlush(Category $category)
     {
         $this->em->persist($category);
         $this->em->flush();

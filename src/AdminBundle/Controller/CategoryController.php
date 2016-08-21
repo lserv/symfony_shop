@@ -42,8 +42,8 @@ class CategoryController extends Controller
                     ]);
                     break;
                 case 'items_list':
-                    return new JsonResponse(
-                        [$this->renderView('AdminBundle:Category:list.html.twig', [
+                    return new JsonResponse([
+                        $this->renderView('AdminBundle:Category:list.html.twig', [
                             'categories' => $this->getAllCategories(),
                         ]),
                     ]);
@@ -62,7 +62,7 @@ class CategoryController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $this->get('manager.category')->persist($category);
+            $this->get('manager.category')->persistAndFlush($category);
             return new JsonResponse([
                 'success' => true,
                 'message' => $request->request->get('id') ? 'Updated' : 'Created'
