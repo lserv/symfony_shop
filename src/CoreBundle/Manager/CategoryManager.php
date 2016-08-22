@@ -3,6 +3,8 @@
 namespace Shop\CoreBundle\Manager;
 
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityRepository;
+
 use Shop\CoreBundle\Entity\Category;
 
 class CategoryManager
@@ -11,20 +13,18 @@ class CategoryManager
     protected $repository;
     
     /**
+     * CategoryManager constructor.
+     *
      * @param ObjectManager $em
+     * @param EntityRepository $repository
      */
-    public function __construct(ObjectManager $em)
+    public function __construct(ObjectManager $em, EntityRepository $repository)
     {
         $this->em = $em;
-        $this->repository = $em->getRepository('CoreBundle:Category');
+        $this->repository = $repository;
     }
-    
-    public function getRepository()
-    {
-        return $this->repository;    
-    }
-    
-    public function persistAndFlush(Category $category)
+
+    public function save(Category $category)
     {
         $this->em->persist($category);
         $this->em->flush();
@@ -32,18 +32,9 @@ class CategoryManager
     
     public function delete($category_id)
     {
-        $category = $this
-            ->repository
-            ->findOneBy(['id' => $category_id]);
+        $category = $this->repository->findOneBy(['id' => $category_id]);
 
         $this->em->remove($category);
         $this->em->flush();
-    }
-    
-    public function findAll()
-    {
-        return $this
-            ->repository
-            ->findAll();
     }
 }

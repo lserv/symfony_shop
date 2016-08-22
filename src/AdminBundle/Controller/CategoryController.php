@@ -62,7 +62,7 @@ class CategoryController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $this->get('manager.category')->persistAndFlush($category);
+            $this->get('manager.category')->save($category);
             return new JsonResponse([
                 'success' => true,
                 'message' => $request->request->get('id') ? 'Updated' : 'Created'
@@ -78,7 +78,7 @@ class CategoryController extends Controller
     private function getAllCategories()
     {
         return $this
-            ->get('manager.category')
+            ->get('repository.category')
             ->findAll();
     }
 
@@ -86,8 +86,7 @@ class CategoryController extends Controller
     {
         if ($id = $request->request->get('id')) {
             return $this
-                ->get('manager.category')
-                ->getRepository()
+                ->get('repository.category')
                 ->find($id);
         } else {
             return new Category();

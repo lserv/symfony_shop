@@ -11,9 +11,17 @@ services:
         arguments: [%contact_email%, %contact_from%]
         calls:
             - [setMailerProvider, ["@provider.mail"]]
+    ####################
+    ### REPOSITORIES ###
+    ####################
+    "repository.category":
+        class: Doctrine\ORM\EntityRepository
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - Shop\CoreBundle\Entity\Category
     ################
     ### MANAGERS ###
     ################
     "manager.category":
         class: Shop\CoreBundle\Manager\CategoryManager
-        arguments: ["@doctrine.orm.entity_manager"]
+        arguments: ["@doctrine.orm.entity_manager", "@repository.category"]
