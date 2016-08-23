@@ -6,16 +6,14 @@ use Shop\CoreBundle\Entity\Category;
 use Shop\CoreBundle\Form\CategoryType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
  * @Security("has_role('ROLE_ADMIN')")
  */
-class CategoryController extends Controller
+class CategoryController extends BaseController
 {
     /**
      * @Route("/categories", name="admin_categories")
@@ -31,7 +29,7 @@ class CategoryController extends Controller
                 case 'save_item':
                     return $this->saveItem($request);
                 case 'edit_item':
-                    $category = $this->handleCategory($request);
+                    $category = $this->handleEntity($request, $this->get('repository.category'), Category::class);
                     $form = $this->createForm(CategoryType::class, $category, ["method" => "POST"]);
 
                     return new JsonResponse([
@@ -57,7 +55,7 @@ class CategoryController extends Controller
 
     private function saveItem(Request $request)
     {
-        $category = $this->handleCategory($request);
+        $category = $this->handleEntity($request, $this->get('repository.category'), Category::class);
         $form = $this->createForm(CategoryType::class, $category, ["method" => "POST"]);
         $form->handleRequest($request);
 
@@ -80,16 +78,5 @@ class CategoryController extends Controller
         return $this
             ->get('repository.category')
             ->findAll();
-    }
-
-    private function handleCategory(Request $request)
-    {
-        if ($id = $request->request->get('id')) {
-            return $this
-                ->get('repository.category')
-                ->find($id);
-        } else {
-            return new Category();
-        }
     }
 }
