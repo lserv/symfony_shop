@@ -19,9 +19,17 @@ services:
         factory: ['@doctrine.orm.default_entity_manager', getRepository]
         arguments:
             - Shop\CoreBundle\Entity\Category
+    "repository.product":
+        class: Doctrine\ORM\EntityRepository
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - Shop\CoreBundle\Entity\Product
     ################
     ### MANAGERS ###
     ################
     "manager.category":
         class: Shop\CoreBundle\Manager\CategoryManager
         arguments: ["@doctrine.orm.entity_manager", "@repository.category"]
+    "manager.product":
+        class: Shop\CoreBundle\Manager\ProductManager
+        arguments: ["@doctrine.orm.entity_manager", "@repository.product"]

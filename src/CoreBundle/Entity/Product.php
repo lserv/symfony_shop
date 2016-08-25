@@ -130,7 +130,7 @@ class Product
      * @param \Shop\CoreBundle\Entity\User|null $user
      * @return bool
      */
-	public function isAuthor(User $user = null) 
+    public function isAuthor(User $user = null)
     {
         return $user && $user->getId() == $this->getUser()->getId();
     }
