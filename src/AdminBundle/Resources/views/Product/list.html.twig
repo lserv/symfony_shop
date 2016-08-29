@@ -5,6 +5,8 @@
         <th>Title</th>
         <th>Category</th>
         <th>User</th>
+        <th>Article</th>
+        <th>Cost</th>
         <th style="width: 100px;">Action</th>
     </tr>
     </thead>
@@ -15,6 +17,8 @@
             <td>{{ product.title }}</td>
             <td>{{ product.category.title }}</td>
             <td>{{ product.user.email }}</td>
+            <td>{{ product.article }}</td>
+            <td>{{ product.cost }}</td>
             <td>
                 <span class="pull-right">
                     <a href="#" class="mdi-editor-mode-edit" id="edit"></a>

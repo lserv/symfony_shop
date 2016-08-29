@@ -27,6 +27,24 @@
                         {{ form_widget(form.category, {'attr': {'class': 'form-control', 'data-rules': 'not-empty'}}) }}
                     </div>
                 </div>
+                <div class="form-group">
+                    <div class="col-sm-6">
+                        <label class="col-sm-4 control-label" for="name">Cost</label>
+                        <div class="col-sm-7">
+                            <div class="input-group">
+                                <input type="text" name="product[cost]" class="form-control" data-rules="not-empty" value="{{ product.cost }}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <label class="col-sm-4 control-label" for="name">Article</label>
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                {{ form_widget(form.article, {'attr': {'class': 'form-control', 'data-rules': 'not-empty'}}) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <!-- Modal Footer -->
             <div class="modal-footer">

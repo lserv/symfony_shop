@@ -873,7 +873,7 @@
     $.fn.popelValidator.setRuleMessage({
         email: 'Email невалидны ',
         'email-unique': "E-mail :value уже занят",
-        notEmpty:  'Поле пусто',
+        notEmpty:  'Field empty',
         minLength: 'Должно быть не меньше :dataMinLength символов',
         maxLength: 'Должно быть не больше :dataMaxLength символов',
         password:  'Этот пароль не надежен',
