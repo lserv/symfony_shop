@@ -2,24 +2,24 @@ services:
     #################
     ### PROVIDERS ###
     #################
-    "provider.mail":
+    core.provider.mail:
         class: Shop\CoreBundle\Providers\MailProvider
         calls:
             - [setContainer, ["@service_container"]]
-    "provider.mail_contact":
+    core.provider.mail_contact:
         class: Shop\CoreBundle\Providers\MailContactProvider
         arguments: [%contact_email%, %contact_from%]
         calls:
-            - [setMailerProvider, ["@provider.mail"]]
+            - [setMailerProvider, ["@core.provider.mail"]]
     ####################
     ### REPOSITORIES ###
     ####################
-    "repository.category":
+    core.repository.category:
         class: Doctrine\ORM\EntityRepository
         factory: ['@doctrine.orm.default_entity_manager', getRepository]
         arguments:
             - Shop\CoreBundle\Entity\Category
-    "repository.product":
+    core.repository.product:
         class: Doctrine\ORM\EntityRepository
         factory: ['@doctrine.orm.default_entity_manager', getRepository]
         arguments:
@@ -27,9 +27,15 @@ services:
     ################
     ### MANAGERS ###
     ################
-    "manager.category":
+    core.manager.category:
         class: Shop\CoreBundle\Manager\CategoryManager
-        arguments: ["@doctrine.orm.entity_manager", "@repository.category"]
-    "manager.product":
+        arguments: ['@doctrine.orm.entity_manager', '@core.repository.category']
+    core.manager.product:
         class: Shop\CoreBundle\Manager\ProductManager
-        arguments: ["@doctrine.orm.entity_manager", "@repository.product"]
+        arguments: ['@doctrine.orm.entity_manager', '@core.repository.product', '@core.services_file']
+    ################
+    ### SERVICES ###
+    ################
+    core.services_file:
+        class: Shop\CoreBundle\Services\FileService
+        arguments: ['%image_product_dir%']

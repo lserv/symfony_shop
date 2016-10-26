@@ -4,3 +4,4 @@ imports:
 parameters:
     contact_email: info@gmail.com
     contact_from: info@gmail.com
+    image_product_dir: '%kernel.root_dir%/../web/uploads/product'

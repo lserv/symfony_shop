@@ -23,13 +23,13 @@ class CategoryController extends BaseController
         if ($request->isXmlHttpRequest() && $action = $request->request->get('action')) {
             switch ($action) {
                 case 'delete_item':
-                    $this->get('manager.category')->delete($request->request->get('id'));
+                    $this->get('core.manager.category')->delete($request->request->get('id'));
 
                     return new JsonResponse(['success' => true]);
                 case 'save_item':
                     return $this->saveItem($request);
                 case 'edit_item':
-                    $category = $this->handleEntity($request, $this->get('repository.category'), Category::class);
+                    $category = $this->handleEntity($request, $this->get('core.repository.category'), Category::class);
                     $form = $this->createForm(CategoryType::class, $category, ["method" => "POST"]);
 
                     return new JsonResponse([
@@ -55,12 +55,12 @@ class CategoryController extends BaseController
 
     private function saveItem(Request $request)
     {
-        $category = $this->handleEntity($request, $this->get('repository.category'), Category::class);
+        $category = $this->handleEntity($request, $this->get('core.repository.category'), Category::class);
         $form = $this->createForm(CategoryType::class, $category, ["method" => "POST"]);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $this->get('manager.category')->save($category);
+            $this->get('core.manager.category')->save($category);
             return new JsonResponse([
                 'success' => true,
                 'message' => $request->request->get('id') ? 'Updated' : 'Created'
@@ -76,7 +76,7 @@ class CategoryController extends BaseController
     private function getAllCategories()
     {
         return $this
-            ->get('repository.category')
+            ->get('core.repository.category')
             ->findAll();
     }
 }

@@ -3,6 +3,7 @@
     <tr>
         <th>Id</th>
         <th>Title</th>
+        <th>Image</th>
         <th>Category</th>
         <th>User</th>
         <th>Article</th>
@@ -15,6 +16,11 @@
         <tr id="item" data-item-id="{{ product.id }}">
             <td>{{ product.id }}</td>
             <td>{{ product.title }}</td>
+            <td>
+                {% if product.image %}
+                    <image src="{{ asset('uploads/product/' ~ product.image) }}" width="100px" style="margin-top: 10px" />
+                {% endif %}
+            </td>
             <td>{{ product.category.title }}</td>
             <td>{{ product.user.email }}</td>
             <td>{{ product.article }}</td>

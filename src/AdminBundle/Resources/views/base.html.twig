@@ -5,7 +5,6 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('bundles/admin/css/material.css') }}"/>
     <link rel="stylesheet" type="text/css" href="{{ asset('bundles/admin/css/material-fullpalette.css') }}"/>
     <link rel="stylesheet" type="text/css" href="{{ asset('bundles/admin/css/notie.css') }}"/>
-    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/admin/css/bootstrap-datetimepicker.min.css') }}"/>
     <link rel="stylesheet" type="text/css" href="{{ asset('bundles/admin/css/fileinput.min.css') }}"/>
 
     <script type="text/javascript" src="{{ asset('bundles/admin/js/jQuery.js') }}"></script>
@@ -15,8 +14,9 @@
     <script type="text/javascript" src="{{ asset('bundles/admin/js/validator.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/admin/js/app.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/admin/js/moment.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bundles/admin/js/bootstrap-datetimepicker.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/admin/js/fileinput.min.js') }}"></script>
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
 
     <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
     <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>

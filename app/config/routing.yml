@@ -7,3 +7,5 @@ shop_admin:
     prefix:   admin
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"

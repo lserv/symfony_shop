@@ -3,6 +3,9 @@
 namespace Shop\CoreBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -33,12 +36,18 @@ class ProductType extends AbstractType
                         ->orderBy('c.title', 'DESC');
                 }
             ])
-            ->add('user')           /*->add('cost', MoneyType::class, [
+            ->add('user')           
+            /*->add('cost', MoneyType::class, [
                 'divisor' => 100,
                 'currency'=> 'USD'
             ])*/
+            ->add('image', HiddenType::class)
             ->add('cost', TextType::class)
             ->add('article', TextType::class)
+            ->add('description', TextareaType::class)
+            ->add('metaTitle', TextType::class)
+            ->add('metaKeywords', TextareaType::class)
+            ->add('metaDescription', TextareaType::class)
         ;
     }
     

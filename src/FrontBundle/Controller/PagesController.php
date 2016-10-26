@@ -31,7 +31,7 @@ class PagesController extends Controller
         
         $form->handleRequest($request);
         if ($form->isValid()) {
-            if ($this->get("provider.mail_contact")->sendEmail($form->getData())) {
+            if ($this->get("core.provider.mail_contact")->sendEmail($form->getData())) {
                 $request->getSession()->getFlashBag()->set('success', 'Message sent!');
             } else {
                 $request->getSession()->getFlashBag()->set('danger', 'Message not sent!');

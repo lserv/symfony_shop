@@ -122,7 +122,12 @@ class Product
      * @ORM\Column(name="meta_description", type="string", length=255, nullable=true)
      */
     private $metaDescription;
-    
+
+    /**
+     * @ORM\Column(type="string", nullable=true, length=150)
+     */
+    private $image;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
@@ -365,5 +370,25 @@ class Product
         if ($this->getCreatedAt() == null) {
             $this->setCreatedAt(new \DateTime());
         }
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImage() 
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param mixed $image
+     *
+     * @return $this
+     */
+    public function setImage($image) 
+    {
+        $this->image = $image;
+
+        return $this;
     }
 }

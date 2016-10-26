@@ -68,7 +68,7 @@ App = {
 
     loadItems: function() 
     {
-        $(".items-list").html('<img src="/bundles/admin/img/ajax-loader.gif" />');
+        $(".items-list").html('<img src="/bundles/admin/img/loading.gif" />');
         this.ajax({action: 'items_list'}, function(data) {
             $(".items-list").html(data);
             App.itemListEvents();

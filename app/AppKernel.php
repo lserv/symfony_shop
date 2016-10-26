@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new Shop\CoreBundle\CoreBundle(),
             new Shop\FrontBundle\FrontBundle(),
             new Shop\AdminBundle\AdminBundle(),
+            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

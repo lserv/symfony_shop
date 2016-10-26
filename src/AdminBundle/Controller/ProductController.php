@@ -15,31 +15,48 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 class ProductController extends BaseController
 {
     /**
-     * @Route("/products", name="admin_products")
+     * @Route(
+     *     "/products",
+     *     name="admin_products",
+     *     options={"expose"=true}
+     * )
      */
     public function indexAction(Request $request)
     {
-        if ($request->isXmlHttpRequest() && $action = $request->request->get('action')) {
+        //var_dump($request->get('action'));exit;
+        if ($request->isXmlHttpRequest() && $action = $request->get('action')) {
             switch ($action) {
                 case 'delete_item':
-                    $this->get('manager.product')->delete($request->request->get('id'));
+                    $this->get('core.manager.product')->delete($request->request->get('id'));
             
-                    return new JsonResponse(['success' => true]);
+                    return $this->json(['success' => true]);
                 case 'save_item':
                     return $this->saveItem($request);
                 case 'edit_item':
-                    $product = $this->handleEntity($request, $this->get('repository.product'), Product::class);
+                    $product = $this->handleEntity($request, $this->get('core.repository.product'), Product::class);
                     $form = $this->createForm(ProductType::class, $product, ["method" => "POST"]);
             
-                    return new JsonResponse([
+                    return $this->json([
                         'modal' => $this->renderView('AdminBundle:Product:modal.html.twig', [
                             'product'  => $product,
                             'form'     => $form->createView(),
                         ])
                     ]);
                     break;
+                case 'upload_image':
+                    return $this->json([
+                        'success' => true,
+                        'filename' => $this->get('core.services_file')->upload($request->files->get('file_data'))
+                    ]);
+                case 'delete_img':
+                    if ($old_img = $request->request->get('old_img')) {
+                        $this->get('core.services_file')->delete($old_img);
+                    }
+
+                    return $this->json(['success' => true]);
+                    break;
                 case 'items_list':
-                    return new JsonResponse([
+                    return $this->json([
                         $this->renderView('AdminBundle:Product:list.html.twig', [
                             'products' => $this->getAllProducts(),
                         ]),
@@ -55,18 +72,19 @@ class ProductController extends BaseController
     
     private function saveItem(Request $request)
     {
-        $product = $this->handleEntity($request, $this->get('repository.product'), Product::class);
+        /** @var Product $product */
+        $product = $this->handleEntity($request, $this->get('core.repository.product'), Product::class);
         $form = $this->createForm(ProductType::class, $product, ["method" => "POST"]);
         $form->handleRequest($request);
         
         if ($form->isValid()) {
-            $this->get('manager.product')->save($product);
-            return new JsonResponse([
+            $this->get('core.manager.product')->save($product);
+            return $this->json([
                 'success' => true,
                 'message' => $request->request->get('id') ? 'Updated' : 'Created'
             ]);
         } else {
-            return new JsonResponse([
+            return $this->json([
                 'success' => false,
                 'message' => $form->getErrors()
             ]);
@@ -76,7 +94,7 @@ class ProductController extends BaseController
     private function getAllProducts()
     {
         return $this
-            ->get('repository.product')
+            ->get('core.repository.product')
             ->findAll();
     }
 }
