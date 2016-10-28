@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="Shop\CoreBundle\Repository\ProductRepository")
  * @ORM\Table(
  *     name="products", 
  *     indexes={
@@ -25,19 +25,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  **/
 class Product
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     * @ORM\Column(type="integer")
-     */
-    private $id;
-
-    /**
-     * @ORM\Column(type="string")
-     * @Assert\NotBlank()
-     */
-    private $title;
-
+    use Base;
+    
     /**
      * @ORM\ManyToOne(targetEntity="Shop\CoreBundle\Entity\Category", inversedBy="product")
      * @ORM\JoinColumns({
@@ -53,22 +42,6 @@ class Product
      * })
      */
     private $user;
-    
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="created_at", type="datetime")
-     * @Assert\DateTime()
-     */
-    private $createdAt;
-    
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="updated_at", type="datetime")
-     * @Assert\DateTime()
-     */
-    private $updatedAt;
     
     /**
      * @var boolean
@@ -95,77 +68,9 @@ class Product
     private $article;
     
     /**
-     * @var string
-     *
-     * @ORM\Column(name="description", type="text")
-     * @Assert\NotBlank()
-     */
-    private $description;
-    
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="meta_keywords", type="string", length=255, nullable=true)
-     */
-    private $metaKeywords;
-    
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="meta_title", type="string", length=255, nullable=true)
-     */
-    private $metaTitle;
-    
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="meta_description", type="string", length=255, nullable=true)
-     */
-    private $metaDescription;
-
-    /**
      * @ORM\Column(type="string", nullable=true, length=150)
      */
     private $image;
-
-    public function __construct()
-    {
-        $this->createdAt = new \DateTime();
-    }
-    
-    /**
-     * Get id.
-     *
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set title.
-     *
-     * @param string $title
-     *
-     * @return Product
-     */
-    public function setTitle($title)
-    {
-        $this->title = $title;
-
-        return $this;
-    }
-
-    /**
-     * Get title.
-     *
-     * @return string
-     */
-    public function getTitle()
-    {
-        return $this->title;
-    }
 
     /**
      * Set category.
@@ -216,38 +121,6 @@ class Product
     }
     
     /**
-     * @return \DateTime
-     */
-    public function getCreatedAt() 
-    {
-        return $this->createdAt;
-    }
-    
-    /**
-     * @param \DateTime $createdAt
-     */
-    public function setCreatedAt($createdAt) 
-    {
-        $this->createdAt = $createdAt;
-    }
-    
-    /**
-     * @return \DateTime
-     */
-    public function getUpdatedAt() 
-    {
-        return $this->updatedAt;
-    }
-    
-    /**
-     * @param \DateTime $updatedAt
-     */
-    public function setUpdatedAt($updatedAt) 
-    {
-        $this->updatedAt = $updatedAt;
-    }
-    
-    /**
      * @return boolean
      */
     public function isActive() 
@@ -295,83 +168,6 @@ class Product
         $this->article = $article;
     }
     
-    /**
-     * @return string
-     */
-    public function getDescription() 
-    {
-        return $this->description;
-    }
-    
-    /**
-     * @param string $description
-     */
-    public function setDescription($description) 
-    {
-        $this->description = $description;
-    }
-    
-    /**
-     * @return string
-     */
-    public function getMetaKeywords() 
-    {
-        return $this->metaKeywords;
-    }
-    
-    /**
-     * @param string $metaKeywords
-     */
-    public function setMetaKeywords($metaKeywords) 
-    {
-        $this->metaKeywords = $metaKeywords;
-    }
-    
-    /**
-     * @return string
-     */
-    public function getMetaTitle() 
-    {
-        return $this->metaTitle;
-    }
-    
-    /**
-     * @param string $metaTitle
-     */
-    public function setMetaTitle($metaTitle) 
-    {
-        $this->metaTitle = $metaTitle;
-    }
-    
-    /**
-     * @return string
-     */
-    public function getMetaDescription() 
-    {
-        return $this->metaDescription;
-    }
-    
-    /**
-     * @param string $metaDescription
-     */
-    public function setMetaDescription($metaDescription) 
-    {
-        $this->metaDescription = $metaDescription;
-    }
-
-    /**
-     * @ORM\PrePersist
-     * @ORM\PreUpdate
-     */
-    public function updatedDatetimeFields()
-    {
-        $this->setUpdatedAt(new \DateTime());
-
-        if ($this->getCreatedAt() == null) {
-            $this->setCreatedAt(new \DateTime());
-        }
-    }
-
     /**
      * @return mixed
      */

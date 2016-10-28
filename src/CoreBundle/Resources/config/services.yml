@@ -24,6 +24,11 @@ services:
         factory: ['@doctrine.orm.default_entity_manager', getRepository]
         arguments:
             - Shop\CoreBundle\Entity\Product
+    core.repository.page:
+        class: Doctrine\ORM\EntityRepository
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - Shop\CoreBundle\Entity\Page
     ################
     ### MANAGERS ###
     ################
@@ -33,6 +38,9 @@ services:
     core.manager.product:
         class: Shop\CoreBundle\Manager\ProductManager
         arguments: ['@doctrine.orm.entity_manager', '@core.repository.product', '@core.services_file']
+    core.manager.page:
+        class: Shop\CoreBundle\Manager\PageManager
+        arguments: ['@doctrine.orm.entity_manager', '@core.repository.page']
     ################
     ### SERVICES ###
     ################

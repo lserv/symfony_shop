@@ -2,25 +2,16 @@
 
 namespace Shop\FrontBundle\Controller;
 
+use Shop\CoreBundle\Entity\Page;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Request;
 
 use Shop\FrontBundle\Form\ContactType;
 
 class PagesController extends Controller
 {
-    /**
-     * @Route("/", name="front_main_page")
-     * @Template()
-     */
-    public function indexAction()
-    {
-        return [];
-    }
-
     /**
      * @Route("/contact.html", name="front_page_contact")
      * @Template()
@@ -42,21 +33,19 @@ class PagesController extends Controller
     }
     
     /**
-     * @Route("/{page}.html", name="front_page")
-     *
-     * @param $page
-     * @return mixed
-     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @Route("/{slug}.html", name="front_page")
      */
-    public function pageAction($page)
+    public function pageAction(Page $page)
     {
-        $finder = new Finder();
-        $dir = $this->get('kernel')->locateResource('@FrontBundle').'Resources/views/Pages/';
+        return $this->render('@Front/Pages/page.html.twig', [
+            'page' => $page
+        ]);
+    }
 
-        if ($finder->files()->name($page.'.html.twig')->in($dir)->count()) {
-            return $this->render('FrontBundle:Pages:'.$page.'.html.twig');
-        } else {
-            throw $this->createNotFoundException('The page not found!');
-        }
+    public function pagesInFooterAction()
+    {
+        return $this->render('@Front/Pages/pages_footer.html.twig', [
+            'pages' => $this->get('core.repository.page')->findBy(['active' => 1])
+        ]);
     }
 }

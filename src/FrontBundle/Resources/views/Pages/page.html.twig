@@ -1,0 +1,29 @@
+{% extends 'FrontBundle::base.html.twig' %}
+
+{% block title %}{{ page.metaTitle }}{% endblock%}
+{% block metakeywords %}{{ page.metaKeywords }}{% endblock%}
+{% block metadescription %}{{ page.metaDescription }}{% endblock%}
+
+{% block content %}
+    <div class="breadcrumbs">
+        <div class="container">
+            <div class="breadcrumbs-main">
+                <ol class="breadcrumb">
+                    <li><a href="{{ path('front_main_page') }}">Home</a></li>
+                    <li class="active">{{ page.title }}</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <div class="contact">
+        <div class="container">
+            <div class="contact-top heading">
+                <h3>{{ page.title }}</h3>
+            </div>
+            <div class="contact-bottom">
+                {{ page.description }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

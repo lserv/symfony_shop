@@ -33,3 +33,14 @@ Shop\CoreBundle\Entity\Product:
         description: <text(200)>
         metaTitle: <text(20)>
         metaDescription: <text(100)>
+
+Shop\CoreBundle\Entity\Page:
+    pages_{Carrers, Team, Sites, Contact, About}:
+        title (unique): <current()>
+        user: '@users_<numberBetween(1, 3)>'
+        createdAt: <dateTimeBetween("now")>
+        updatedAt: <dateTimeBetween("now")>
+        active: <boolean()>
+        description: <text(200)>
+        metaTitle: <text(20)>
+        metaDescription: <text(100)>

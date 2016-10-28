@@ -1,0 +1,6 @@
+<h3>ABOUT US</h3>
+<ul>
+    {% for page in pages %}
+        <li><a href="{{ path('front_page', {'slug': page.slug }) }}">{{ page.title }}</a></li>
+    {% endfor %}
+</ul>

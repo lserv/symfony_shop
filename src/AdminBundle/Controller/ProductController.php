@@ -23,7 +23,6 @@ class ProductController extends BaseController
      */
     public function indexAction(Request $request)
     {
-        //var_dump($request->get('action'));exit;
         if ($request->isXmlHttpRequest() && $action = $request->get('action')) {
             switch ($action) {
                 case 'delete_item':
